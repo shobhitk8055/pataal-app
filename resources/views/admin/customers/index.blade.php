@@ -61,9 +61,9 @@
                                 <td field-key='phone'>{{ $customer->phone }}</td>
                                 <td field-key='email'>{{ $customer->email }}</td>
                                     @if($customer->id_proof)
-                                <td field-key='pic'>yes</td>
+                                <td field-key='pic'>image</td>
                                     @else{
-                                    <td field-key='pic'>no</td>
+                                    <td field-key='pic'>No image</td>
 
                                     @endif
                                 @if( request('show_deleted') == 1 )

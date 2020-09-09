@@ -65,8 +65,10 @@ class CustomersController extends Controller
         $customer = Customer::create($request->all());
 
         if ($request->hasFile('id_proof')){
+            $completeName = $request->file('id_proof')->getClientOriginalName();
+            $request->id_proof->storeAs('uploads', $completeName, 'public');
             $customer->update([
-                'id_proof' => $request->id_proof->store('uploads','public')
+                'id_proof' => $completeName,
             ]);
         }
 
