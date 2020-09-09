@@ -70,6 +70,10 @@ class BookingsController extends Controller
         return redirect()->route('admin.bookings.index');
     }
 
+    public function checkout(Request $request){
+        dd($request);
+    }
+
 
     /**
      * Show the form for editing Booking.

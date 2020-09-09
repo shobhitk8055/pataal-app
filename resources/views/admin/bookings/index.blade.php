@@ -38,7 +38,7 @@
                         <th>@lang('quickadmin.bookings.fields.time-from')</th>
                         <th>@lang('quickadmin.bookings.fields.time-to')</th>
                         <th>@lang('quickadmin.bookings.fields.amount')</th>
-                        <th>@lang('quickadmin.bookings.fields.additional-information')</th>
+                        <th>@lang('Booking Status')</th>
                         @if( request('show_deleted') == 1 )
                         <th>&nbsp;</th>
                         @else
@@ -55,12 +55,12 @@
                                     @if ( request('show_deleted') != 1 )<td></td>@endif
                                 @endcan
 
-                                <td field-key='customer'>{{ $booking->customer->full_name or '' }}</td>
-                                <td field-key='room'>{{ $booking->room->room_number or '' }}</td>
+                                <td field-key='customer'>{{ $booking->customer->full_name ?? ""}}</td>
+                                <td field-key='room'>{{ $booking->room->room_number ?? "" }}</td>
                                 <td field-key='time_from'>{{ $booking->time_from }}</td>
                                 <td field-key='time_to'>{{ $booking->time_to }}</td>
                                 <td field-key='amount'>{{ $booking->amount }}</td>
-                                <td field-key='additional_information'>{!! $booking->additional_information !!}</td>
+                                <td field-key='additional_information'>{!! $booking->status !!}</td>
                                 @if( request('show_deleted') == 1 )
                                 <td>
                                     @can('booking_delete')
@@ -84,7 +84,14 @@
                                 </td>
                                 @else
                                 <td>
-                                    @can('booking_view')
+                                    <form method="post" action="bookings/checkout">
+                                        @csrf
+                                        <input type="hidden" value="Checked-Out" name="status">
+                                        <input type="hidden" value="bookingId" name="bookingId">
+
+                                    <button type="submit" style="margin-bottom:4px;" type="submit" href="{{ route('admin.bookings.edit',[$booking->id]) }}" class="btn btn-xs btn-success">@lang('Checkout')</button>
+                                    </form>
+                                @can('booking_view')
                                     <a href="{{ route('admin.bookings.show',[$booking->id]) }}" class="btn btn-xs btn-primary">@lang('quickadmin.qa_view')</a>
                                     @endcan
                                     @can('booking_edit')

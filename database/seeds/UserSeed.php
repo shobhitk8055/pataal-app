@@ -20,5 +20,14 @@ class UserSeed extends Seeder
         foreach ($items as $item) {
             \App\User::create($item);
         }
+        \App\Category::create([
+            'name'=>"small"
+        ]);
+        \App\Category::create([
+            'name'=>"medium"
+        ])
+        ;\App\Category::create([
+            'name'=>"large"
+        ]);
     }
 }

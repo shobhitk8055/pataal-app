@@ -71,6 +71,22 @@
                 </div>
             </div>
 
+            <div class="row">
+                <div class="col-xs-12 form-group">
+                    {!! Form::label('Status', trans('Status').'', ['class' => 'control-label']) !!}
+                    <select class="form-control select2" name="status">
+                        <option value="Booked">Booked</option>
+                        <option value="Confirmed">Confirmed</option>
+                        <option value="Checked-In">Checked in</option>
+                    </select>
+                    <p class="help-block"></p>
+                    @if($errors->has('room_id'))
+                        <p class="help-block">
+                            {{ $errors->first('room_id') }}
+                        </p>
+                    @endif
+                </div>
+            </div>
 
             <div class="row">
                 <div class="col-xs-12 form-group">
