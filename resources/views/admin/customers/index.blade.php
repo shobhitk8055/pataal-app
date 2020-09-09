@@ -38,7 +38,7 @@
                         <th>@lang('quickadmin.customers.fields.address')</th>
                         <th>@lang('quickadmin.customers.fields.phone')</th>
                         <th>@lang('quickadmin.customers.fields.email')</th>
-                        <th>@lang('quickadmin.customers.fields.country')</th>
+                        <th>@lang('Id proof')</th>
                         @if( request('show_deleted') == 1 )
                         <th>&nbsp;</th>
                         @else
@@ -60,7 +60,12 @@
                                 <td field-key='address'>{{ $customer->address }}</td>
                                 <td field-key='phone'>{{ $customer->phone }}</td>
                                 <td field-key='email'>{{ $customer->email }}</td>
-                                <td field-key='country'>{{ $customer->country->title or '' }}</td>
+                                    @if($customer->id_proof)
+                                <td field-key='pic'>yes</td>
+                                    @else{
+                                    <td field-key='pic'>no</td>
+
+                                    @endif
                                 @if( request('show_deleted') == 1 )
                                 <td>
                                     @can('customer_delete')

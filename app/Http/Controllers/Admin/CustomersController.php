@@ -31,7 +31,6 @@ class CustomersController extends Controller
         } else {
             $customers = Customer::all();
         }
-
         return view('admin.customers.index', compact('customers'));
     }
 
@@ -62,7 +61,14 @@ class CustomersController extends Controller
         if (! Gate::allows('customer_create')) {
             return abort(401);
         }
+
         $customer = Customer::create($request->all());
+
+        if ($request->hasFile('id_proof')){
+            $customer->update([
+                'id_proof' => $request->id_proof->store('uploads','public')
+            ]);
+        }
 
 
         return redirect()->route('admin.customers.index');
