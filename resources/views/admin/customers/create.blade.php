@@ -2,7 +2,7 @@
 
 @section('content')
     <h3 class="page-title">@lang('quickadmin.customers.title')</h3>
-    {!! Form::open(['method' => 'POST', 'route' => ['admin.customers.store']]) !!}
+    {!! Form::open(['method' => 'POST', 'route' => ['admin.customers.store'], 'enctype' => 'multipart/form-data']) !!}
 
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -72,12 +72,12 @@
             </div>
             <div class="row">
                 <div class="col-xs-12 form-group">
-                    {!! Form::label('country_id', trans('quickadmin.customers.fields.country').'', ['class' => 'control-label']) !!}
-                    {!! Form::select('country_id', $countries, old('country_id'), ['class' => 'form-control select2']) !!}
+                    {!! Form::label('id_proof', trans('ID Proof').'', ['class' => 'control-label']) !!}
+                    {!! Form::file('id_proof', old('id_proof')) !!}
                     <p class="help-block"></p>
-                    @if($errors->has('country_id'))
+                    @if($errors->has('id_proof'))
                         <p class="help-block">
-                            {{ $errors->first('country_id') }}
+                            {{ $errors->first('id_proof') }}
                         </p>
                     @endif
                 </div>

@@ -65,7 +65,6 @@ class CustomersController extends Controller
         $customer = Customer::create($request->all());
 
 
-
         return redirect()->route('admin.customers.index');
     }
 

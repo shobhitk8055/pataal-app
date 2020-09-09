@@ -20,7 +20,7 @@ class Create1516728020CustomersTable extends Migration
                 $table->string('address')->nullable();
                 $table->string('phone')->nullable();
                 $table->string('email');
-                
+                $table->string('id_proof')->nullable();
                 $table->timestamps();
                 $table->softDeletes();
 
