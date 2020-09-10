@@ -87,10 +87,12 @@
                                     <form method="post" action="bookings/checkout">
                                         @csrf
                                         <input type="hidden" value="Checked-Out" name="status">
-                                        <input type="hidden" value="bookingId" name="bookingId">
+                                        <input type="hidden" value="{{ $booking->id }}" name="bookingId">
 
                                     <button type="submit" style="margin-bottom:4px;" type="submit" href="{{ route('admin.bookings.edit',[$booking->id]) }}" class="btn btn-xs btn-success">@lang('Checkout')</button>
                                     </form>
+                                    <a href="{{route('admin.items.store',[$booking->id]) }}" class="btn btn-xs btn-info">@lang('Add items')</a>
+
                                 @can('booking_view')
                                     <a href="{{ route('admin.bookings.show',[$booking->id]) }}" class="btn btn-xs btn-primary">@lang('quickadmin.qa_view')</a>
                                     @endcan

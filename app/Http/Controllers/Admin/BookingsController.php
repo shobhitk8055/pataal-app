@@ -6,6 +6,7 @@ use App\Booking;
 use App\Customer;
 use App\Room;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreBookingsRequest;
@@ -71,7 +72,16 @@ class BookingsController extends Controller
     }
 
     public function checkout(Request $request){
-        dd($request);
+
+        $id = $request->bookingId;
+
+        $status= $request->status;
+
+        Booking::find($id)->update([
+            'status'=> $status
+        ]);
+
+        return redirect()->route('admin.bookings.index');
     }
 
 
@@ -127,8 +137,10 @@ class BookingsController extends Controller
             return abort(401);
         }
         $booking = Booking::findOrFail($id);
-
-        return view('admin.bookings.show', compact('booking'));
+        $items = DB::table('booking_items')->where('booking_id',$booking->id)->get();
+        $count = 2;
+        $total = $booking->amount + DB::table('booking_items')->where('booking_id',$booking->id)->sum('total_amount');
+        return view('admin.bookings.show', compact('booking','items','count','total'));
     }
 
 

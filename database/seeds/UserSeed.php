@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Room;
+use App\Category;
+use App\User;
 
 class UserSeed extends Seeder
 {
@@ -18,16 +21,15 @@ class UserSeed extends Seeder
         ];
 
         foreach ($items as $item) {
-            \App\User::create($item);
+            User::create($item);
         }
-        \App\Category::create([
-            'name'=>"small"
-        ]);
-        \App\Category::create([
-            'name'=>"medium"
-        ])
-        ;\App\Category::create([
-            'name'=>"large"
+        Category::create([ 'name'=>"small" ]);
+        Category::create([ 'name'=>"medium" ]);
+        Category::create([ 'name'=>"large" ]);
+        Room::create([
+            'room_number'=> "24A",
+            'floor'=>1,
+            'description'=>"good room"
         ]);
     }
 }
