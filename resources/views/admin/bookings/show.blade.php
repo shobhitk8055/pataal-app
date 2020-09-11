@@ -2,6 +2,8 @@
 
 @section('content')
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js" defer></script>
+
 
     <h3 class="page-title">@lang('quickadmin.bookings.title')</h3>
 
@@ -51,6 +53,7 @@
                     <th scope="col">Price</th>
                     <th scope="col">Quantity</th>
                     <th scope="col">Total</th>
+                    <th scope="col">Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -60,6 +63,7 @@
                     <td>{{ $booking->amount }} ₹</td>
                     <td>1</td>
                     <td>{{ $booking->amount }} ₹</td>
+                    <td></td>
                 </tr>
                 @foreach($items as $item)
                 <tr>
@@ -68,6 +72,9 @@
                     <td>{{$item->amount}} ₹</td>
                     <td>{{$item->quantity}}</td>
                     <td>{{$item->total_amount}} ₹</td>
+                    <td>
+                        <a class="text-danger" href="{{route('admin.items.delete',[$booking->id])}}">delete</a>
+                    </td>
                 </tr>
                 @endforeach
                 <tr>
@@ -75,7 +82,7 @@
                     <td class="mt-3">Discount</td>
                     <td></td>
                     <td></td>
-                    <td><b>0 ₹</b></td>
+                    <td><b>{{$booking->discount ?? 0}} ₹</b></td>
                 </tr>
                 <tr>
                     <th></th>
@@ -89,13 +96,16 @@
             <br>
             <div class="container">
                 <div id="app">
-                    <discount></discount>
+                    <discount sum="{{$total}}"
+                              csrf="{{csrf_token()}}"
+                              book="{{$booking->id}}"
+                    ></discount>
                 </div>
                 <br>
             </div>
 
-            <a href="{{ route('admin.bookings.index') }}" class="btn btn-primary">@lang('Add Item')</a>
-            <a href="{{ route('admin.bookings.index') }}" class="btn btn-default">@lang('quickadmin.qa_back_to_list')</a>
+            <a href="{{route('admin.bookings.index')}}" class="btn btn-primary">@lang('Add Item')</a>
+            <a href="{{route('admin.bookings.index')}}" class="btn btn-default">@lang('quickadmin.qa_back_to_list')</a>
         </div>
     </div>
 @stop

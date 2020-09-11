@@ -4,6 +4,7 @@ use Illuminate\Database\Seeder;
 use App\Room;
 use App\Category;
 use App\User;
+use App\Customer;
 
 class UserSeed extends Seeder
 {
@@ -30,6 +31,11 @@ class UserSeed extends Seeder
             'room_number'=> "24A",
             'floor'=>1,
             'description'=>"good room"
+        ]);
+        Customer::create([
+           'first_name'=>"Shobhit",
+           'last_name'=>"Kansal",
+           'email'=>"shobhitk8055@gmail.com",
         ]);
     }
 }

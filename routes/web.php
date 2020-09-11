@@ -53,6 +53,9 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
 
     Route::get('add-items/{id}', 'Admin\ItemsController@store')->name('items.store');
     Route::post('add-items/create', 'Admin\ItemsController@create')->name('items.create');
+    Route::get('add-items/{id}/delete', 'Admin\ItemsController@delete')->name('items.delete');
+
+    Route::post('bookings/discount', 'Admin\BookingsController@discount')->name('bookings.discount');
 
      Route::get('bookings/create/', ['as' => 'bookings.create', 'uses' => 'Admin\BookingsController@create']);
     Route::post('bookings_mass_destroy', ['uses' => 'Admin\BookingsController@massDestroy', 'as' => 'bookings.mass_destroy']);

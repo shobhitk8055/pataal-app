@@ -20,7 +20,9 @@ class Create1516728224BookingsTable extends Migration
                 $table->text('additional_information')->nullable();
                 $table->text('status')->nullable();
                 $table->decimal('amount')->nullable();
-
+                $table->decimal('items_total')->nullable();
+                $table->decimal('discount')->nullable();
+                $table->decimal('total_amount')->nullable();
                 $table->timestamps();
                 $table->softDeletes();
 

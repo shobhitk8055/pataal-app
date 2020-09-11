@@ -139,7 +139,7 @@ class BookingsController extends Controller
         $booking = Booking::findOrFail($id);
         $items = DB::table('booking_items')->where('booking_id',$booking->id)->get();
         $count = 2;
-        $total = $booking->amount + DB::table('booking_items')->where('booking_id',$booking->id)->sum('total_amount');
+        $total = $booking->amount + $booking->items_total - $booking->discount;
         return view('admin.bookings.show', compact('booking','items','count','total'));
     }
 
@@ -161,11 +161,20 @@ class BookingsController extends Controller
         return redirect()->route('admin.bookings.index');
     }
 
+    public function discount(Request $request){
+        $booking = Booking::find($request->bookingId);
+        $booking->update([
+           'discount'=>$request->discount
+        ]);
+        return redirect()->route('admin.bookings.show',[$booking->id]);
+    }
+
     /**
      * Delete all selected Booking at once.
      *
      * @param Request $request
      */
+
     public function massDestroy(Request $request)
     {
         if (!Gate::allows('booking_delete')) {
