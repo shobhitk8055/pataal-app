@@ -111,6 +111,7 @@
                 <br>
             </div>
             <a href="{{route('admin.items.store',[$booking->id])}}" class="btn btn-primary">@lang('Add Item')</a>
+            <a href="{{route('admin.items.store',[$booking->id])}}" class="btn btn-default">@lang('Generate pdf')</a>
             <a href="{{route('admin.bookings.index')}}" class="btn btn-default">@lang('quickadmin.qa_back_to_list')</a>
         </div>
     </div>
