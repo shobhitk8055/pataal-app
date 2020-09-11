@@ -139,8 +139,7 @@ class BookingsController extends Controller
         $booking = Booking::findOrFail($id);
         $items = DB::table('booking_items')->where('booking_id',$booking->id)->get();
         $count = 2;
-        $total = $booking->amount + $booking->items_total - $booking->discount;
-        return view('admin.bookings.show', compact('booking','items','count','total'));
+        return view('admin.bookings.show', compact('booking','items','count'));
     }
 
 
@@ -164,7 +163,8 @@ class BookingsController extends Controller
     public function discount(Request $request){
         $booking = Booking::find($request->bookingId);
         $booking->update([
-           'discount'=>$request->discount
+           'discount'=>$request->discount,
+            'total_amount'=> $booking->amount + $booking->items_total - $request->discount
         ]);
         return redirect()->route('admin.bookings.show',[$booking->id]);
     }

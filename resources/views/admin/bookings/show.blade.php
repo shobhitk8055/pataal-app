@@ -73,38 +73,44 @@
                     <td>{{$item->quantity}}</td>
                     <td>{{$item->total_amount}} ₹</td>
                     <td>
-                        <a class="text-danger" href="{{route('admin.items.delete',[$booking->id])}}">delete</a>
+                        <a class="text-danger" href="{{route('admin.items.delete',[$item->id])}}">delete</a>
                     </td>
                 </tr>
                 @endforeach
                 <tr>
                     <th></th>
-                    <td class="mt-3">Discount</td>
+                    <td class="mt-3"></td>
                     <td></td>
-                    <td></td>
-                    <td><b>{{$booking->discount ?? 0}} ₹</b></td>
+                    <td>Subtotal</td>
+                    <td>{{$booking->amount + $booking->items_total ?? 0}} ₹</td>
                 </tr>
                 <tr>
                     <th></th>
-                    <td class="mt-3"><b>Total</b></td>
+                    <td class="mt-3"></td>
                     <td></td>
+                    <td>Discount</td>
+                    <td>{{$booking->discount ?? 0}} ₹</td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td class="mt-3"></td>
                     <td></td>
-                    <td><b>{{$total}} ₹</b></td>
+                    <td><b>Total</b></td>
+                    <td><b>{{$booking->total_amount}} ₹</b></td>
                 </tr>
                 </tbody>
             </table>
             <br>
             <div class="container">
                 <div id="app">
-                    <discount sum="{{$total}}"
+                    <discount sum="{{$booking->total_amount}}"
                               csrf="{{csrf_token()}}"
                               book="{{$booking->id}}"
                     ></discount>
                 </div>
                 <br>
             </div>
-
-            <a href="{{route('admin.bookings.index')}}" class="btn btn-primary">@lang('Add Item')</a>
+            <a href="{{route('admin.items.store',[$booking->id])}}" class="btn btn-primary">@lang('Add Item')</a>
             <a href="{{route('admin.bookings.index')}}" class="btn btn-default">@lang('quickadmin.qa_back_to_list')</a>
         </div>
     </div>
