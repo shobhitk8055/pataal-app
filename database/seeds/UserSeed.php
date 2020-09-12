@@ -24,14 +24,18 @@ class UserSeed extends Seeder
         foreach ($items as $item) {
             User::create($item);
         }
+
         Category::create([ 'name'=>"small" ]);
         Category::create([ 'name'=>"medium" ]);
         Category::create([ 'name'=>"large" ]);
+
         Room::create([
             'room_number'=> "24A",
             'floor'=>1,
-            'description'=>"good room"
+            'description'=>"good room",
+            'status'=>'available'
         ]);
+
         Customer::create([
            'first_name'=>"Shobhit",
            'last_name'=>"Kansal",

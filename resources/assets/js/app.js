@@ -17,6 +17,7 @@ window.Vue = require('vue');
 
 Vue.component('example', require('./components/Example.vue'));
 Vue.component('discount', require('./components/Discount.vue'));
+Vue.component('payment', require('./components/Payment.vue'));
 
 const app = new Vue({
     el: '#app'

@@ -62,9 +62,9 @@ class RoomsController extends Controller
         if (! Gate::allows('room_create')) {
             return abort(401);
         }
-        $room = Room::create($request->all());
-
-
+        if (Room::where('room_number', $request->room_number)->count() === 0) {
+            $room = Room::create($request->all());
+        }
 
         return redirect()->route('admin.rooms.index');
     }

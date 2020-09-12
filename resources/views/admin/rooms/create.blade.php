@@ -59,7 +59,7 @@
                     @endif
                 </div>
             </div>
-            
+            <input type="hidden" name="status" value="available">
         </div>
     </div>
 

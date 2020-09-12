@@ -15,10 +15,11 @@ class Create1516728105RoomsTable extends Migration
         if(! Schema::hasTable('rooms')) {
             Schema::create('rooms', function (Blueprint $table) {
                 $table->increments('id');
-                $table->string('room_number');
+                $table->string('room_number')->unique();
                 $table->integer('floor')->nullable();
                 $table->text('description')->nullable();
-                
+                $table->string('status')->nullable();
+
                 $table->timestamps();
                 $table->softDeletes();
 

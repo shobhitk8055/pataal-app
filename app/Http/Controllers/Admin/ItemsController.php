@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use SebastianBergmann\Comparator\Book;
+use PDF;
 
 class ItemsController extends Controller
 {
@@ -54,5 +55,30 @@ class ItemsController extends Controller
         ]);
 
         return redirect()->route('admin.bookings.show',[$bookID]);
+    }
+
+    public function pdf($id){
+        $data = [];
+        $booking = Booking::find($id);
+        $items = DB::table('booking_items')->where('booking_id',$booking->id)->get();
+        $count = 2;
+        array_push($data,$booking,$items,$count);
+
+        // share data to view
+        view()->share('data',$data);
+        $pdf = PDF::loadView('admin.bookings.invoice', $data);
+
+        // download PDF file with download method
+        return $pdf->download('pdf_file.pdf');
+    }
+    public function checker(){
+        $data = [];
+        $booking = Booking::find(2);
+        $items = DB::table('booking_items')->where('booking_id',$booking->id)->get();
+        $count = 2;
+        array_push($data,$booking,$items,$count);
+        return view('admin.bookings.invoice',[
+            'data'=>$data
+        ]);
     }
 }

@@ -50,10 +50,12 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::delete('rooms_perma_del/{id}', ['uses' => 'Admin\RoomsController@perma_del', 'as' => 'rooms.perma_del']);
     Route::resource('bookings', 'Admin\BookingsController', ['except' => 'bookings.create']);
     Route::post('bookings/checkout', 'Admin\BookingsController@checkout')->name('bookings.checkout');
+    Route::post('bookings/payment', 'Admin\BookingsController@payment')->name('bookings.payment');
 
     Route::get('add-items/{id}', 'Admin\ItemsController@store')->name('items.store');
     Route::post('add-items/create', 'Admin\ItemsController@create')->name('items.create');
     Route::get('add-items/{id}/delete', 'Admin\ItemsController@delete')->name('items.delete');
+    Route::get('items/pdf/{id}', 'Admin\ItemsController@pdf')->name('items.pdf');
 
     Route::post('bookings/discount', 'Admin\BookingsController@discount')->name('bookings.discount');
 

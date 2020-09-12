@@ -36,6 +36,7 @@
                         <th>@lang('quickadmin.rooms.fields.room-number')</th>
                         <th>@lang('quickadmin.rooms.fields.floor')</th>
                         <th>@lang('quickadmin.rooms.fields.description')</th>
+                        <th>@lang('Status')</th>
                         @if( request('show_deleted') == 1 )
                         <th>&nbsp;</th>
                         @else
@@ -55,6 +56,7 @@
                                 <td field-key='room_number'>{{ $room->room_number }}</td>
                                 <td field-key='floor'>{{ $room->floor }}</td>
                                 <td field-key='description'>{!! $room->description !!}</td>
+                                <td>{{ $room->status }}</td>
                                 @if( request('show_deleted') == 1 )
                                 <td>
                                     @can('room_delete')

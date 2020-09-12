@@ -4,6 +4,7 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js" defer></script>
 
+    <div id="app">
 
     <h3 class="page-title">@lang('quickadmin.bookings.title')</h3>
 
@@ -11,7 +12,6 @@
         <div class="panel-heading">
             @lang('quickadmin.qa_view')
         </div>
-
         <div class="panel-body table-responsive">
             <div class="row">
                 <div class="col-md-6">
@@ -41,6 +41,11 @@
                             <td field-key='additional_information'>{!! $booking->status !!}</td>
                         </tr>
                     </table>
+                </div>
+                <div class="col-md-3 offset-2">
+                    <payment book='@json($booking)'
+                             csrf="{{csrf_token()}}"
+                    ></payment>
                 </div>
             </div>
 
@@ -102,17 +107,17 @@
             </table>
             <br>
             <div class="container">
-                <div id="app">
                     <discount sum="{{$booking->total_amount}}"
                               csrf="{{csrf_token()}}"
                               book="{{$booking->id}}"
                     ></discount>
-                </div>
                 <br>
             </div>
             <a href="{{route('admin.items.store',[$booking->id])}}" class="btn btn-primary">@lang('Add Item')</a>
-            <a href="{{route('admin.items.store',[$booking->id])}}" class="btn btn-default">@lang('Generate pdf')</a>
+            <a href="{{route('admin.items.pdf',[$booking->id])}}" class="btn btn-default">@lang('Generate pdf')</a>
             <a href="{{route('admin.bookings.index')}}" class="btn btn-default">@lang('quickadmin.qa_back_to_list')</a>
         </div>
     </div>
+    </div>
+
 @stop

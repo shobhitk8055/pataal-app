@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreBookingsRequest;
 use App\Http\Requests\Admin\UpdateBookingsRequest;
+use Carbon\Carbon;
 
 class BookingsController extends Controller
 {
@@ -63,22 +64,56 @@ class BookingsController extends Controller
      */
     public function store(StoreBookingsRequest $request)
     {
+        $myTime = new Carbon();
         if (!Gate::allows('booking_create')) {
             return abort(401);
         }
+
         $booking = Booking::create($request->all());
+
+        if ($booking->status==="Checked-In"){
+            $booking->update([
+                'check_in_time'=>$myTime->toDateTimeString()
+            ]);
+        }
+        $booking->update([
+           'total_amount'=>$booking->amount,
+           'payment_status'=>0
+        ]);
+
+        $room = Room::find($booking->room_id);
+        switch ($booking->status){
+            case "Booked":
+                $room->update([
+                    'status'=> 'Booked'
+                ]);
+                break;
+            case "Confirmed":
+            case "Checked-In":
+                $room->update([
+                    'status'=> 'unavailable'
+                ]);
+                break;
+        }
 
         return redirect()->route('admin.bookings.index');
     }
 
     public function checkout(Request $request){
 
+        $myTime = new Carbon();
         $id = $request->bookingId;
 
         $status= $request->status;
 
-        Booking::find($id)->update([
-            'status'=> $status
+        $booking = Booking::find($id);
+        $booking->update([
+            'status'=> $status,
+            'check_out_time'=> $myTime->toDateTimeString()
+        ]);
+
+        Room::find($booking->room_id)->update([
+            'status'=>"available"
         ]);
 
         return redirect()->route('admin.bookings.index');
@@ -117,9 +152,24 @@ class BookingsController extends Controller
         if (!Gate::allows('booking_edit')) {
             return abort(401);
         }
+
         $booking = Booking::findOrFail($id);
         $booking->update($request->all());
 
+        $room = Room::find($booking->room_id);
+        switch ($booking->status){
+            case "Booked":
+                $room->update([
+                    'status'=> 'Booked'
+                ]);
+                break;
+            case "Confirmed":
+            case "Checked-In":
+                $room->update([
+                    'status'=> 'unavailable'
+                ]);
+                break;
+        }
 
         return redirect()->route('admin.bookings.index');
     }
@@ -167,6 +217,38 @@ class BookingsController extends Controller
             'total_amount'=> $booking->amount + $booking->items_total - $request->discount
         ]);
         return redirect()->route('admin.bookings.show',[$booking->id]);
+    }
+
+    public function payment(Request $request){
+        $myTime = new Carbon();
+
+        $booking = Booking::find($request->bookingId);
+        $booking->update([
+            'payment_status'=>1,
+            'mode'=>$request->mode,
+            'time'=>$myTime->toDateTimeString()
+        ]);
+        switch ($booking->mode){
+            case 'credit':
+            case 'debit':
+                $booking->update([
+                   'card_no'=>$request->card_no
+                ]);
+                break;
+            case 'google_pay':
+            case 'phone_pay':
+            case 'upi':
+                $booking->update([
+                    'upi_id'=>$request->upi_id
+                ]);
+                break;
+            case 'paytm':
+                $booking->update([
+                    'paytm_no'=>$request->paytm_no
+                ]);
+                break;
+        }
+        return redirect(route('admin.bookings.show',[$booking->id]));
     }
 
     /**
