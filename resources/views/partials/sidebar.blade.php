@@ -5,7 +5,6 @@
     <section class="sidebar">
         <ul class="sidebar-menu">
 
-             
 
             <li class="{{ $request->segment(1) == 'home' ? 'active' : '' }}">
                 <a href="{{ url('/') }}">
@@ -99,7 +98,7 @@
             <li class="{{ $request->segment(2) == 'find_rooms' ? 'active' : '' }}">
                 <a href="{{ route('admin.find_rooms.index') }}">
                     <i class="fa fa-arrows"></i>
-                    <span class="title">@lang('quickadmin.find-room.title')</span>
+                    <span class="title">Calender View</span>
                 </a>
             </li>
             @endcan

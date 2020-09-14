@@ -48,7 +48,7 @@
                 <td scope="col">{{ booking.payment_status === 0 ? 'Pending':'Approved' }}</td>
             </tr>
             </thead>
-            <tbody v-if="booking.status">
+            <tbody v-if="booking.payment_status">
 
             <tr>
                 <th scope="row">Mode</th>

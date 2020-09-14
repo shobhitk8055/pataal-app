@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Booking;
 use App\Http\Controllers\Controller;
+use App\Room;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use SebastianBergmann\Comparator\Book;
@@ -70,15 +71,5 @@ class ItemsController extends Controller
 
         // download PDF file with download method
         return $pdf->download('pdf_file.pdf');
-    }
-    public function checker(){
-        $data = [];
-        $booking = Booking::find(2);
-        $items = DB::table('booking_items')->where('booking_id',$booking->id)->get();
-        $count = 2;
-        array_push($data,$booking,$items,$count);
-        return view('admin.bookings.invoice',[
-            'data'=>$data
-        ]);
     }
 }

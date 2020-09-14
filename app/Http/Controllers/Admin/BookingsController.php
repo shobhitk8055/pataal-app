@@ -51,7 +51,9 @@ class BookingsController extends Controller
         }
 
         $customers = Customer::get()->pluck('full_name', 'id')->prepend(trans('quickadmin.qa_please_select'), '');
-        $rooms = Room::get()->pluck('room_number', 'id')->prepend(trans('quickadmin.qa_please_select'), '');
+        $rooms = Room::get()->where('status','available')
+                            ->pluck('room_number', 'id','status')
+                            ->prepend(trans('quickadmin.qa_please_select'), '');
 
         return view('admin.bookings.create', compact('customers', 'rooms'));
     }

@@ -2,9 +2,9 @@
 
 @section('content')
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-4 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">{{ ucfirst(config('app.name')) }} @lang('quickadmin.qa_login')</div>
+                <div class="panel-heading">Pataal Login</div>
                 <div class="panel-body">
                     
                     @if (count($errors) > 0)
@@ -76,6 +76,9 @@
                     </form>
                 </div>
             </div>
+        </div>
+        <div class="col-md-4 col-md-offset-0">
+            <img width="400" src="{{asset('images/hotel.jpg')}}">
         </div>
     </div>
 @endsection

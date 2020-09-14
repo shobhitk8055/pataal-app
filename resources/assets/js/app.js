@@ -18,6 +18,8 @@ window.Vue = require('vue');
 Vue.component('example', require('./components/Example.vue'));
 Vue.component('discount', require('./components/Discount.vue'));
 Vue.component('payment', require('./components/Payment.vue'));
+Vue.component('calendar', require('./components/Calendar.vue'));
+Vue.component('booking-chart', require('./components/BookingChart.vue'));
 
 const app = new Vue({
     el: '#app'

@@ -4,10 +4,10 @@
        style="font-size: 16px;">
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini">
-           @lang('quickadmin.quickadmin_title')</span>
+           @lang('pataal')</span>
         <!-- logo for regular state and mobile devices -->
         <span class="logo-lg">
-           @lang('quickadmin.quickadmin_title')</span>
+           @lang('pataal.com')</span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">

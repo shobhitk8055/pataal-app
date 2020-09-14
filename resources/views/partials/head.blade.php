@@ -1,6 +1,6 @@
 <meta charset="utf-8">
 <title>
-    @lang('quickadmin.quickadmin_title')
+    Pataal - Admin area
 </title>
 
 <meta http-equiv="X-UA-Compatible"
@@ -15,6 +15,8 @@
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 <!-- Font Awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="{{ asset('css/fullcalendar.css') }}" >
 <!-- Ionicons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -24,7 +26,7 @@
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 <script src="{{ asset('js/app.js') }}"></script>
-
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.js"></script>
 <link href="{{ url('adminlte/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
 <link rel="stylesheet"
       href="{{ url('quickadmin/css') }}/select2.min.css"/>
